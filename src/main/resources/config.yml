@@ -1,0 +1,5 @@
+allowed: []
+connecting: '&f[&3Edoras&f] &bEstableciendo conexión con el servidor de pruebas...'
+kickreason: '&4¡Ups! &cNo tienes permiso para acceder al servidor de pruebas.'
+chat-kickreason: '&f[&3Edoras&f] &cNo tienes permiso para acceder al servidor de pruebas.'
+not-a-player: 'Solo un jugador puede ejecutar este comando.'

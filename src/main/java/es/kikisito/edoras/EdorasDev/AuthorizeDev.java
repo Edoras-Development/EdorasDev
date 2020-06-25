@@ -24,16 +24,18 @@ public class AuthorizeDev extends Command {
                 cmdSender.sendMessage(new TextComponent(Main.prefix + ChatColor.AQUA + "El usuario indicado se encuentra " + ChatColor.RED + "desconectado" + ChatColor.AQUA + "."));
                 return;
             }
+
             ProxiedPlayer target = Main.plugin.getProxy().getPlayer(strings[0]);
-            if (!Main.authorized.contains(target.getName())) {
-                Main.authorized.add(target.getName());
+            if (!Main.authorized.contains(target.getUniqueId())) {
+                Main.authorized.add(target.getUniqueId());
+                Main.config.set("allowed", Main.authorized);
+                Main.saveConfig();
                 cmdSender.sendMessage(new TextComponent(Main.prefix + ChatColor.GRAY + target.getName() + ChatColor.AQUA + " ha sido " + ChatColor.GREEN + "añadido" + ChatColor.AQUA + " a la lista de autorizados."));
                 target.sendMessage(new TextComponent(Main.prefix + ChatColor.AQUA + "Se te ha " + ChatColor.GREEN + "otorgado" + ChatColor.AQUA + " permiso para acceder al servidor de pruebas."));
             } else {
-                Main.authorized.remove(target.getName());
-                if (target.getServer().getInfo().getName().equals("dev")) {
-                    target.connect(Main.plugin.getProxy().getServerInfo("survival"));
-                }
+                Main.authorized.remove(target.getUniqueId());
+                Main.config.set("allowed", Main.authorized);
+                Main.saveConfig();
                 cmdSender.sendMessage(new TextComponent(Main.prefix + ChatColor.GRAY + target.getName() + ChatColor.AQUA + " ha sido " + ChatColor.RED + "eliminado" + ChatColor.AQUA + " de la lista de autorizados."));
                 target.sendMessage(new TextComponent(Main.prefix + ChatColor.AQUA + "Se te ha " + ChatColor.RED + "revocado" + ChatColor.AQUA + " el permiso para acceder al servidor de pruebas."));
             }
